@@ -86,7 +86,7 @@ function StartingStates() {
         ))}
         <button aria-pressed={isSuperposed} onClick={() => setIsSuperposed(true)}>Superposition</button>
       </div>
-      <p>A classical bit has a definite value of either 0 or 1. However, a quit can exist in a super position of these two states. When measured in the computational basis, it would still give us only one result of 0 or 1</p>
+      <p>A classical bit has a definite value, either 0 or 1. A qubit can also be in a state that combines 0 and 1. This state is called a <strong>superposition</strong>. When you measure the qubit superposition, you get just one result, either 0 or 1.</p>
     </section>
   )
 }
@@ -103,6 +103,7 @@ function HadamardFlow() {
   return (
     <section aria-labelledby="hadamard-flow-heading">
       <h2 id="hadamard-flow-heading">What happens when we apply H twice?</h2>
+      <p>Opening Schrödinger's box is a measurement. If a qubit stays unmeasured after the first H gate, applying H again takes it from superposition back to its initial state.</p>
       <figure className="hadamard-flow" aria-label="Two Hadamard gates applied to state 0">
         <div className="hadamard-stage">
           <span className="hadamard-state">0</span>
@@ -122,7 +123,6 @@ function HadamardFlow() {
           <span className="hadamard-probability">100% / 0%</span>
         </div>
       </figure>
-      <p>With no measurement in between, two H gates always restore the initial state.</p>
     </section>
   )
 }
@@ -182,7 +182,7 @@ function CatExperiment() {
     <>
       <CatSymbols />
       <section aria-labelledby="cat-heading">
-        <h2 id="cat-heading">Schrödinger’s cat.</h2>
+        <h2 id="cat-heading">Schrödinger's cat.</h2>
         <p>Imagine a sealed box containing a cat, a radioactive atom, a geiger counter, a hammer, and a vial of toxic chemical. In this experiment, the atom has a 50% chance of decaying within one hour.</p>
         <figure className="apparatus-figure">
           <img className="apparatus" src={catExperiment} width={1754} height={896} alt="Inside the box, a radiation symbol marks the source beside a Geiger counter. A raised hammer hangs above a bottle labeled Toxic, with the cat sitting to its right." />
@@ -191,7 +191,7 @@ function CatExperiment() {
       </section>
       <section className="box-scene" aria-labelledby="box-heading">
         <p className="clock">1 hour later</p>
-        <h3 id="box-heading">What’s inside the box?</h3>
+        <h3 id="box-heading">What's inside the box?</h3>
         <p>In the ideal model, the atom and cat together are described as a superposition of alive and dead outcomes, each paired with its atomic state.</p>
         <div className="box-stage">
           <div className="box-illustration">
@@ -219,8 +219,8 @@ function CatExperiment() {
             <p>Opening the box represents a measurement. When you measure a qubit in the 0/1 basis, its state collapses to either 0 or 1.</p>
             <div className="conclusion" id="box-conclusion" role="status">
               <div aria-hidden={!showLimit}>
-                <h3>What happens in the box can’t be undone.</h3>
-                <p>A second H can undo the gate on an undisturbed qubit. Here the detector and the surroundings have already recorded the outcome. Closing the lid starts a fresh trial.</p>
+                <h3>What happens in the box can't be undone.</h3>
+                <p>The detector has already recorded what happened inside the box. Closing the lid can't change that outcome.</p>
               </div>
             </div>
           </div>
@@ -306,10 +306,10 @@ function HadamardExperiment() {
 export default function App() {
   return (
     <main>
-      <h1>Superposition, Explained with Schrödinger’s Cat</h1>
+      <h1>Superposition, Explained with Schrödinger's Cat</h1>
+      <CatExperiment />
       <StartingStates />
       <HadamardExperiment />
-      <CatExperiment />
       <HadamardFlow />
       <section aria-labelledby="superposition-probabilities-heading">
         <h2 id="superposition-probabilities-heading">Is superposition always 50/50?</h2>
