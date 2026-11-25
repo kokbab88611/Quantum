@@ -313,6 +313,7 @@ export default function App() {
       <HadamardFlow />
       <section aria-labelledby="superposition-probabilities-heading">
         <h2 id="superposition-probabilities-heading">Is superposition always 50/50?</h2>
+        <p className="superposition-answer">No</p>
         <p>The Hadamard gate creates an equal superposition when applied to a qubit in state 0 or 1. However, a qubit can exist in many different superpositions.</p>
         <p>For example, one qubit might have a 70% chance of being measured as 0 and a 30% chance of being measured as 1. Another might have a 20% chance of being measured as 0 and an 80% chance of being measured as 1.</p>
         <div className="state-pair">

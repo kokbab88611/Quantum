@@ -82,6 +82,10 @@ p {
   text-wrap: pretty;
 }
 
+.superposition-answer {
+  font: 400 clamp(24px, 4vw, 35px)/1.12 Georgia, serif;
+}
+
 .actions {
   display: flex;
   gap: 9px;
