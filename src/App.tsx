@@ -45,12 +45,13 @@ function StateDiagram({ angle, p0 }: { angle: number; p0?: number }) {
   )
 }
 
-function StartingStates({ bit, prepare }: { bit: Bit; prepare: (value: Bit) => void }) {
+function StartingStates() {
+  const [bit, setBit] = useState<Bit>(0)
   const [isSuperposed, setIsSuperposed] = useState(false)
 
   function chooseBit(value: Bit) {
     setIsSuperposed(false)
-    prepare(value)
+    setBit(value)
   }
 
   return (
@@ -229,7 +230,7 @@ function CatExperiment() {
   )
 }
 
-export default function App() {
+function HadamardExperiment() {
   const [bit, setBit] = useState<Bit>(0)
   const [hasHadamard, setHasHadamard] = useState(false)
   const [reading, setReading] = useState<Bit | null>(null)
@@ -267,34 +268,47 @@ export default function App() {
   }
 
   return (
+    <section aria-labelledby="gate-heading">
+      <h2 id="gate-heading">Through the Hadamard gate.</h2>
+      <p>Choose an initial state, then apply H to put your qubit in a superposition. Which result will you see when you measure it?</p>
+      <div className="gate-stage">
+        <StateDiagram angle={angle} p0={p0} />
+        <div className="actions gate-inputs" role="group" aria-label="Choose the Hadamard input state">
+          {([0, 1] as const).map(value => (
+            <button key={value} aria-pressed={bit === value} onClick={() => prepare(value)}>{value}</button>
+          ))}
+        </div>
+      </div>
+      <div className="prob-bars" role="group" aria-label="Measurement probabilities">
+        <div className="prob-row">
+          <span>Measure 0</span>
+          <div className="bar-track" aria-hidden="true">
+            <div className="bar-fill" style={{ width: `${p0}%` }} />
+          </div>
+          <span>{p0}%</span>
+        </div>
+        <div className="prob-row">
+          <span>Measure 1</span>
+          <div className="bar-track" aria-hidden="true">
+            <div className="bar-fill alt" style={{ width: `${100 - p0}%` }} />
+          </div>
+          <span>{100 - p0}%</span>
+        </div>
+      </div>
+      <p className="status" role="status">{status}</p>
+      <button className={reading === null ? 'primary' : undefined} onClick={advanceExperiment}>
+        {action}
+      </button>
+    </section>
+  )
+}
+
+export default function App() {
+  return (
     <main>
       <h1>Superposition, Explained with Schrödinger’s Cat</h1>
-      <StartingStates bit={bit} prepare={prepare} />
-      <section aria-labelledby="gate-heading">
-        <h2 id="gate-heading">Through the Hadamard gate.</h2>
-        <p>Apply H to put your qubit in a superposition. Which result will you see when you measure it?</p>
-        <StateDiagram angle={angle} p0={p0} />
-        <div className="prob-bars" role="group" aria-label="Measurement probabilities">
-          <div className="prob-row">
-            <span>Measure 0</span>
-            <div className="bar-track" aria-hidden="true">
-              <div className="bar-fill" style={{ width: `${p0}%` }} />
-            </div>
-            <span>{p0}%</span>
-          </div>
-          <div className="prob-row">
-            <span>Measure 1</span>
-            <div className="bar-track" aria-hidden="true">
-              <div className="bar-fill alt" style={{ width: `${100 - p0}%` }} />
-            </div>
-            <span>{100 - p0}%</span>
-          </div>
-        </div>
-        <p className="status" role="status">{status}</p>
-        <button className={reading === null ? 'primary' : undefined} onClick={advanceExperiment}>
-          {action}
-        </button>
-      </section>
+      <StartingStates />
+      <HadamardExperiment />
       <CatExperiment />
       <HadamardFlow />
       <section aria-labelledby="superposition-probabilities-heading">

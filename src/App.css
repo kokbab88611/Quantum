@@ -450,6 +450,18 @@ figure figcaption {
   opacity: 0;
 }
 
+.gate-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) auto;
+  align-items: center;
+  gap: 14px;
+  width: min(100%, 330px);
+}
+
+.gate-inputs {
+  flex-direction: column;
+}
+
 .prob-bars {
   display: grid;
   gap: 0.45rem;
